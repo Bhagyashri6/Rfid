@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.enpeck.RFID"
+    android:installLocation="auto">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/sale1"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/sale1"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.enpeck.RFID.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.enpeck.RFID.home.MainActivity" />
+        <activity
+            android:name="com.enpeck.RFID.Register"
+            android:label="Register Your Company Here" />
+        <activity android:name="com.enpeck.RFID.inventory.AssignTag" />
+        <activity
+            android:name="com.enpeck.RFID.settings.SettingsDetailActivity"
+            android:label="@string/title_activity_settings_detail"
+            android:launchMode="singleTask"
+            android:parentActivityName="com.enpeck.RFID.home.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <service
+            android:name="com.enpeck.RFID.notifications.NotificationsService"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.enpeck.RFID.notifications.NotificationsReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+
+                <!-- Actions to be handled in the background should be registered here -->
+                <action android:name="com.rfidreader.battery.low" />
+                <action android:name="com.rfidreader.battery.critical" />
+                <action android:name="com.rfidreader.battery.charging" />
+                <action android:name="com.rfidreader.disconnected" />
+                <action android:name="com.rfidreader.connected" />
+                <action android:name="com.rfidreader.available" />
+                <action android:name="com.rfidreader.status.received" />
+                <action android:name="com.rfidreader.conn.failed" />
+                <action android:name="com.rfidreader.NFC.outofrange" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

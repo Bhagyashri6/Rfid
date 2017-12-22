@@ -1,0 +1,712 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear"
+    tools:context="com.enpeck.RFID.vertifyTag.Verifiy_Tag">
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:elevation="24dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:visibility="gone"
+       >
+       <LinearLayout
+           android:id="@+id/inventoryDataLayout"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_weight="13"
+           android:background="@color/dark_grey"
+           android:baselineAligned="false">
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="33"
+               android:orientation="vertical">
+
+               <TextView
+                   style="@style/style_very_small_font"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="@dimen/default_left_padding"
+                   android:layout_marginTop="5dp"
+                   android:gravity="right"
+                   android:text="@string/inv_filter_title" />
+
+               <Spinner
+                   android:id="@+id/inventoryOptions"
+                   style="@style/style_default_spinner"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="0dp" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="33"
+               android:orientation="vertical">
+
+               <TextView
+                   style="@style/style_very_small_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:gravity="center"
+                   android:text="@string/inv_unique_title" />
+
+               <TextView
+                   android:id="@+id/inventoryUniqueText"
+                   style="@style/style_large_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="9999" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="@dimen/default_right_margin"
+               android:layout_weight="33"
+               android:orientation="vertical">
+
+               <TextView
+                   style="@style/style_very_small_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:gravity="center"
+                   android:text="@string/inv_count_title" />
+
+               <TextView
+                   android:id="@+id/inventoryCountText"
+                   style="@style/style_large_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="9999999" />
+           </LinearLayout>
+       </LinearLayout>
+
+
+       <!-- <TextView
+            android:id="@+id/inventoryList1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="74" />
+    -->
+
+       <TextView android:id="@+id/batchModeInventoryList"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_weight="74"
+           style="@style/style_medium_font"
+           android:textColor="@color/dark_grey"
+           android:padding="@dimen/default_padding"
+           android:text="@string/batch_mode_inventory_title"
+           android:gravity="center"
+           android:visibility="gone"/>
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_weight="13"
+           android:baselineAligned="false"
+           android:orientation="horizontal">
+
+           <Button
+               android:id="@+id/inventoryButton"
+               style="@style/style_button_font"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_alignParentBottom="true"
+               android:layout_gravity="bottom"
+               android:onClick="inventoryStartOrStop"
+               android:text="@string/start_title" />
+       </RelativeLayout>
+
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="vertical"
+         >
+        <TextView
+            android:id="@+id/abc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone"/>
+
+        <ListView
+            android:id="@+id/inventoryList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".2"
+            android:layout_gravity="left|top"
+            android:background="@drawable/square" />
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1.8"
+      android:weightSum="13"
+      android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:weightSum="2"
+          android:visibility="gone"
+          android:layout_gravity="center"
+          android:orientation="vertical">
+
+          <TextView
+              android:id="@+id/serial"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="1.3"
+              android:gravity="left|top"
+              android:background="@drawable/square"
+              android:text="" />
+
+
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="@drawable/square"
+          android:orientation="horizontal">
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:text="IEC :"
+
+
+          />
+          <TextView
+              android:id="@+id/iec"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="center|left"
+              android:layout_marginLeft="5dp"
+              android:textStyle="bold"
+              android:textSize="14sp"
+
+              />
+
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="@drawable/square"
+          android:orientation="horizontal">
+
+         <!-- <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text=" SHIPPING BILL NO :"
+              android:gravity="left"
+              />-->
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:text="SHIPPING BILL NO :"
+
+            />
+          <TextView
+              android:id="@+id/billnoo"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:layout_marginLeft="5dp"
+
+              />
+
+
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="@drawable/square"
+          android:orientation="horizontal">
+         <!-- <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text="SHIPPING Bill DATE:"
+              android:gravity="left"/>-->
+          <TextView
+
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:text="SHIPPING Bill DATE :"
+              android:hint="SHIPPING Bill DATE :"
+
+              android:gravity="left|center"
+              />
+
+          <TextView
+              android:id="@+id/date"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:textStyle="bold"
+              android:textSize="14sp"
+              android:layout_marginLeft="5dp"
+
+              />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="@drawable/square"
+          android:orientation="horizontal">
+         <!-- <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text="e-Seal No:"
+              android:gravity="left"/>-->
+          <TextView
+
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:text="e-Seal No :"
+              android:hint="e-Seal No :"
+              android:gravity="left|center"
+              />
+          <TextView
+              android:id="@+id/sealno"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:gravity="left|center"
+              android:layout_marginLeft="5dp"
+
+              />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="@drawable/square"
+          android:orientation="horizontal">
+        <!--  <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text="SEALING Date:"
+              android:gravity="left"/>-->
+          <TextView
+
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:text="SEALING Date :"
+              android:hint="SEALING Date :"
+              android:gravity="left|center"
+              />
+          <TextView
+              android:id="@+id/sealingdate"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+
+              android:textStyle="bold"
+              android:textSize="14sp"
+              android:layout_marginLeft="5dp"
+
+              android:gravity="left|center"
+               />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:background="@drawable/square"
+          android:layout_gravity="center"
+          android:orientation="horizontal">
+
+       <!--   <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text="SEALING TIME :"
+              android:gravity="left"/>-->
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:hint="SEALING TIME :"
+
+              android:gravity="left|center"
+              android:text="SEALING TIME : " />
+          <TextView
+              android:id="@+id/sealingtime"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:layout_marginLeft="5dp"
+
+              android:gravity="left|center"
+               />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:background="@drawable/square"
+          android:layout_gravity="center"
+          android:orientation="horizontal">
+       <!--   <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text="DESTINATION CUSTOMS FOR EXPORT:"
+              android:gravity="left"/>-->
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:text="DESTINATION CUSTOMS FOR EXPORT :"
+              android:hint="DESTINATION CUSTOMS FOR EXPORT :"
+
+              android:gravity="left|center"
+              />
+
+          <TextView
+              android:id="@+id/dest"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:textStyle="bold"
+              android:textSize="14sp"
+              android:layout_marginLeft="5dp"
+
+              android:gravity="left|center"
+               />
+      </LinearLayout>
+
+      <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:layout_gravity="center"
+          android:background="@drawable/square"
+
+          android:orientation="horizontal">
+ <!--     <TextView
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight=".7"
+          android:text="CONTAINER NO :"
+          android:gravity="left"/>
+-->
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:text="CONTAINER NO :"
+              android:hint="CONTAINER NO :"
+
+              android:gravity="left|center"
+              />
+
+          <TextView
+          android:id="@+id/containerr"
+          style="@style/style_large_font"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="2dp"
+              android:layout_marginLeft="5dp"
+
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:gravity="left|center"
+           />
+  </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="@drawable/square"
+          android:orientation="horizontal">
+
+<!--
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text="TRAILER/TRUCK NO :"
+              android:gravity="left"
+              />
+
+-->
+
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:gravity="left|center"
+              android:layout_marginTop="2dp"
+              android:text="TRAILER/TRUCK NO :"
+
+
+              />
+          <TextView
+              android:id="@+id/vechicle"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="left|center"
+              android:layout_marginTop="2dp"
+              android:textStyle="bold"
+              android:textSize="14sp"
+              android:layout_marginLeft="5dp"
+
+              />
+
+
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="@drawable/square"
+
+          android:orientation="horizontal">
+
+        <!--  <TextView
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight=".7"
+              android:text="IEC Code :"
+              android:gravity="left"
+              />-->
+
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:hint="LATITUDE :"
+              android:text="LATITUDE :" />
+
+          <TextView
+              android:id="@+id/latitude"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:layout_marginLeft="5dp"
+
+              />
+
+
+      </LinearLayout>
+      <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:layout_gravity="center"
+          android:background="@drawable/square"
+
+          android:orientation="horizontal">
+
+<!--      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight=".7"
+          android:text="IEC Code :"
+          android:gravity="left"
+          />-->
+
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:hint="LONGITUDE :"
+              android:text="LONGITUDE :" />
+
+          <TextView
+          android:id="@+id/longitude"
+          style="@style/style_large_font"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="2dp"
+          android:gravity="left|center"
+              android:textStyle="bold"
+              android:textSize="14sp"
+              android:layout_marginLeft="5dp"
+
+              />
+
+
+  </LinearLayout>
+      <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:layout_gravity="center"
+          android:background="@drawable/square"
+
+          android:orientation="horizontal">
+
+   <!--   <TextView
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight=".7"
+          android:text="IEC Code :"
+          android:gravity="left"
+          />-->
+
+
+          <TextView
+              style="@style/style_large_font"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginTop="2dp"
+              android:gravity="left|center"
+              android:text="IMEI :"
+              android:hint="IMEI :"
+
+              />
+
+          <TextView
+          android:id="@+id/imei"
+          style="@style/style_large_font"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="2dp"
+          android:gravity="left|center"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:layout_marginLeft="5dp"
+
+           />
+
+
+  </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:orientation="vertical">
+
+          <Button
+              android:id="@+id/reset"
+              style="@style/style_large_font"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="30dp"
+              android:layout_marginTop="2dp"
+              android:layout_marginRight="30dp"
+              android:background="@drawable/circle_red_button"
+              android:gravity="center"
+              android:text="Reset" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight=".1"
+          android:gravity="bottom"
+          android:layout_gravity="center"
+          android:orientation="vertical">
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="12dp"
+          android:layout_gravity="end|bottom|center"
+          android:gravity="left|top"
+          android:textColor="#000"
+          android:text="@string/info"/>
+          </LinearLayout>
+  </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>

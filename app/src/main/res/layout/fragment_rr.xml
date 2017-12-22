@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zebra.rfidreader.demo.activities.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/inventoryDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="45"
+            android:gravity="center"
+            android:layout_marginRight="0.5dp"
+            android:background="@color/dark_grey"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/totalTagTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/rr_total_tag_title"
+            android:textSize="@dimen/rapid_read_small_title_font" />
+
+        <TextView
+            android:id="@+id/totalTagContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_left_margin"
+            android:layout_marginRight="@dimen/default_right_margin"
+            android:gravity="center"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="@dimen/rapid_read_read_rate_font"
+            android:text="888888888"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:layout_marginRight="0.5dp"
+            android:background="@color/dark_grey"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/readTimeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rr_read_time_title"
+                android:textSize="@dimen/rapid_read_small_title_font" />
+
+            <TextView
+                android:id="@+id/readTimeContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_left_margin"
+                android:layout_marginRight="@dimen/default_right_margin"
+                android:gravity="center"
+                android:textColor="@android:color/holo_orange_light"
+                android:textSize="@dimen/rapid_read_read_rate_font"
+                android:text="88:88:88"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="45"
+            android:gravity="center"
+            android:background="@color/dark_grey"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/readRateTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/rr_read_rate_title"
+            android:textSize="@dimen/rapid_read_small_title_font" />
+
+        <TextView
+            android:id="@+id/readRateContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_left_margin"
+            android:layout_marginRight="@dimen/default_right_margin"
+            android:gravity="center"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="@dimen/rapid_read_read_rate_font"
+            android:text="8888 t/s"/>
+
+    </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/uniqueTagContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70"
+        android:background="@drawable/rounded_rect_background"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#0f0f0f"
+        android:textScaleX="0.55"
+        android:textSize="@dimen/rapid_read_unique_tag_font"
+        android:textStyle="bold"/>
+
+    <TextView android:id="@+id/batchModeRR"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70"
+        style="@style/style_medium_font"
+        android:background="@drawable/rounded_rect_background"
+        android:textColor="#585858"
+        android:padding="@dimen/default_padding"
+        android:text="@string/batch_mode_inventory_title"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="13"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/rr_inventoryButton"
+            style="@style/style_button_font"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:onClick="inventoryStartOrStop"
+            android:text="@string/start_title" />
+    </RelativeLayout>
+
+</LinearLayout>

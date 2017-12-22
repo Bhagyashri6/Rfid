@@ -1,0 +1,341 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".home.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/authorized"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/linearlayoutassign"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="#FFFFFF"
+        android:elevation="24dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".5"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <Spinner
+                        android:id="@+id/bill_no"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/square"
+                        />
+
+                    <Spinner
+                        android:id="@+id/port"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/square"
+                   />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <Spinner
+                        android:id="@+id/truckno"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/square"
+                   />
+
+                    <Spinner
+                        android:id="@+id/container"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/square"
+                   />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight=".2">
+
+                <Button
+                    android:id="@+id/show"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/circle_red_button"
+                    android:text="Show"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="2.2">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/hintetext"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="There is no data Available.
+  Please Select Another date." />
+
+                    <com.enpeck.RFID.common.TableFixHeaders
+                        android:id="@+id/table"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:elevation="4dp"
+                        android:scrollbars="horizontal|vertical" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".1">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_weight=".1"
+                    android:gravity="center"
+
+                    android:text="@string/info"
+                    android:textColor="#000"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+      <!--  <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="300dp"
+       android:layout_weight="1"
+       android:weightSum="3"
+            android:visibility="gone"
+       android:orientation="vertical">
+       <LinearLayout
+           android:id="@+id/inventoryDataLayout"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_weight=".7"
+           android:visibility="gone"
+           android:background="@drawable/square"
+           android:baselineAligned="false">
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="33"
+               android:visibility="gone"
+               android:orientation="vertical">
+
+               <TextView
+                   style="@style/style_very_small_font"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="@dimen/default_left_padding"
+                   android:layout_marginTop="5dp"
+                   android:gravity="right"
+                   android:text="@string/inv_filter_title" />
+
+               <Spinner
+                   android:id="@+id/inventoryOptions"
+                   style="@style/style_default_spinner"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="0dp" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="33"
+               android:visibility="gone"
+               android:orientation="vertical">
+
+               <TextView
+                   style="@style/style_very_small_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:gravity="center"
+                   android:text="@string/inv_unique_title" />
+
+               <TextView
+                   android:id="@+id/inventoryUniqueText"
+                   style="@style/style_large_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="9999" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="@dimen/default_right_margin"
+               android:layout_weight="33"
+               android:visibility="gone"
+               android:orientation="vertical">
+
+               <TextView
+                   style="@style/style_very_small_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:gravity="center"
+                   android:text="@string/inv_count_title" />
+
+               <TextView
+                   android:id="@+id/inventoryCountText"
+                   style="@style/style_large_font"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="9999999" />
+           </LinearLayout>
+
+       </LinearLayout>
+
+
+       <ListView
+        android:id="@+id/inventoryList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+           android:visibility="gone"/>
+            <TextView
+                android:id="@+id/esealdate"
+                style="@style/style_large_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/square"
+                android:gravity="center"
+                android:text="" />
+            <TextView
+                android:id="@+id/esealtime"
+                style="@style/style_large_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/square"
+                android:gravity="center"
+                android:text="" />
+
+
+
+
+
+    <TextView android:id="@+id/batchModeInventoryList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="74"
+        style="@style/style_medium_font"
+        android:textColor="@color/dark_grey"
+        android:padding="@dimen/default_padding"
+        android:text="@string/batch_mode_inventory_title"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/inventoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:onClick="inventoryStartOrStop"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:visibility="invisible"
+            android:background="@drawable/circle_red_button"
+            android:text="@string/start_title" />
+    </RelativeLayout>
+   </LinearLayout>-->
+</LinearLayout>
+
+</LinearLayout>
+    </LinearLayout>

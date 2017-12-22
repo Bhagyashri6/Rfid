@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_layout_style"
+    android:orientation="vertical"
+    tools:context="com.zebra.rfidreader.demo.fragments.AntennaSettingsFragment">
+
+    <TableRow
+        android:id="@+id/singulationControlRow1"
+        style="@style/table_row_layout_style"
+        >
+
+        <TextView
+            android:id="@+id/sessionTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="60"
+            android:layout_gravity="bottom"
+            android:text="@string/power_level_title" />
+        <EditText
+            android:id="@+id/powerLevel"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:inputType="number" />
+
+    </TableRow>
+    <!--<TableRow
+        style="@style/table_row_layout_style"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        >
+
+        <TextView
+            style="@style/style_grey_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/min_power_level_title" />
+        <TextView
+            android:id="@+id/minPowerLevel"
+            style="@style/style_grey_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" />
+        <TextView
+            style="@style/style_grey_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:text="@string/max_power_level_title" />
+        <TextView
+            android:id="@+id/maxPowerLevel"
+            style="@style/style_grey_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"/>
+
+    </TableRow>
+-->
+    <include layout="@layout/normal_divider" />
+
+
+    <TableRow
+        android:id="@+id/singulationControlRow2"
+        style="@style/table_row_layout_style"
+        >
+
+        <TextView
+            android:id="@+id/linkProfileTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="40"
+            android:layout_gravity="bottom"
+            android:text="@string/link_profile_title" />
+
+        <Spinner
+            android:id="@+id/linkProfile"
+            style="@style/style_default_spinner"
+            android:layout_weight="60"
+            android:layout_margin="0dp"
+            />
+
+    </TableRow>
+
+    <include layout="@layout/normal_divider" />
+    <TableRow
+        style="@style/table_row_layout_style"
+        >
+
+        <TextView
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="60"
+            android:layout_gravity="bottom"
+            android:text="@string/tari_title" />
+        <EditText
+            android:id="@+id/tari"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:inputType="number" />
+
+    </TableRow>
+
+    <include layout="@layout/normal_divider" />
+</LinearLayout>
+

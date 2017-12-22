@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.enpeck.RFID.MasterData">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="#FFFFFF"
+        android:elevation="24dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="#FFFFFF"
+        android:elevation="24dp"
+        android:orientation="vertical">
+
+        <!-- <ImageView
+             android:layout_width="150dp"
+             android:layout_height="130dp"
+             android:layout_gravity="center_horizontal" />-->
+
+        <!--   <TextView
+               android:id="@+id/unique"
+               style="@style/username"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="1dp"
+               android:layout_marginLeft="15dp"
+               android:layout_marginRight="15dp"
+               android:layout_marginTop="50dp"
+               android:alpha="0.7"
+               android:background="@drawable/square"
+               android:elevation="4dp"
+               android:gravity="left|center"
+               android:hint="Unique No"
+               android:inputType="textCapCharacters"
+               android:paddingBottom="5dp"
+               android:paddingLeft="20dp"
+               android:paddingRight="10dp"
+               android:paddingTop="5dp"
+               android:textColor="#000"
+               android:textSize="15sp" />
+   -->
+        <!--  <TextView
+              android:id="@+id/iec"
+              style="@style/username"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="1dp"
+              android:layout_marginLeft="15dp"
+              android:layout_marginRight="15dp"
+              android:layout_marginTop="10dp"
+              android:alpha="0.7"
+              android:background="@drawable/square"
+              android:elevation="4dp"
+              android:gravity="left|center"
+              android:hint="IEC Code"
+              android:inputType="textCapCharacters"
+              android:paddingBottom="5dp"
+              android:paddingLeft="20dp"
+              android:paddingRight="10dp"
+              android:paddingTop="5dp"
+              android:textColor="#000"
+              android:textSize="15sp" />-->
+
+        <EditText
+            android:id="@+id/bill_no"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="Shipping Bill No"
+            android:inputType="textCapCharacters"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/datetoday"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="&#45;&#45; Select Date-&#45;&#45;"
+            android:inputType="textCapCharacters"
+
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/source"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="Source Port "
+            android:inputType="textCapCharacters"
+
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+
+        <AutoCompleteTextView
+            android:id="@+id/dest"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="Destination Port"
+            android:inputType="textCapCharacters"
+
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/conter"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="Container No"
+            android:inputType="textCapCharacters"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/truckk"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="Truck No"
+            android:inputType="textCapCharacters"
+            android:paddingBottom="5dp"
+
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/latitude"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="GPS latitude"
+            android:inputType="textCapCharacters"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/longitude"
+            style="@style/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/square"
+            android:elevation="4dp"
+            android:gravity="left|center"
+            android:hint="GPS longitude"
+            android:inputType="textCapCharacters"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/save"
+            style="@style/Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:alpha="2"
+            android:background="@drawable/circle_red_button"
+            android:elevation="16dp"
+            android:text="save"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:transitionName="vv" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".20"
+            android:layout_marginTop="15dp"
+            android:textSize="12dp"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="@string/info"/>
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/inventoryDataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="13"
+            android:visibility="gone"
+            android:background="@color/dark_grey"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_very_small_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_left_padding"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:text="@string/inv_filter_title" />
+
+                <Spinner
+                    android:id="@+id/inventoryOptions"
+                    style="@style/style_default_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_very_small_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/inv_unique_title" />
+
+                <TextView
+                    android:id="@+id/inventoryUniqueText"
+                    style="@style/style_large_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="9999" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_right_margin"
+                android:layout_weight="33"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/style_very_small_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="@string/inv_count_title" />
+
+                <TextView
+                    android:id="@+id/inventoryCountText"
+                    style="@style/style_large_font"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="9999999" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/inventoryList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="74"
+            android:visibility="gone"/>
+        <!-- <TextView
+             android:id="@+id/inventoryList1"
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="74" />
+     -->
+
+        <TextView android:id="@+id/batchModeInventoryList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="74"
+            style="@style/style_medium_font"
+            android:textColor="@color/dark_grey"
+            android:padding="@dimen/default_padding"
+            android:text="@string/batch_mode_inventory_title"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="13"
+            android:visibility="gone"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/inventoryButton"
+                style="@style/style_button_font"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:onClick="inventoryStartOrStop"
+                android:text="@string/start_title" />
+        </RelativeLayout>
+</LinearLayout>
+    </LinearLayout>

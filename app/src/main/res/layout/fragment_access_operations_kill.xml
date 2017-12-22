@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_layout_style"
+    android:orientation="vertical"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    tools:context="com.zebra.rfidreader.demo.fragments.AccessOperationsReadWriteFragment">
+
+    <include
+        android:id="@+id/accessKillTagID"
+        layout="@layout/autocomplete_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_left_padding" />
+
+
+    <TableRow
+        android:id="@+id/accessKillPasswordRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:layout_weight="50"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/accessKillPasswordTitle"
+            style="@style/style_normal_font"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="@string/kill_pass_title" />
+
+        <include
+            android:id="@+id/accessKillPassword"
+            style="@style/style_normal_font"
+            layout="@layout/custom_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+    </TableRow>
+
+    <Button
+        android:id="@+id/accessKillButton"
+        style="@style/style_button_font"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:onClick="accessOperationsKillClicked"
+        android:text="@string/kill_title" />
+
+</LinearLayout>

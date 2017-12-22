@@ -1,0 +1,171 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_layout_style"
+    android:orientation="vertical"
+
+    tools:context="com.enpeck.RFID.home.AboutFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="#FFFFFF"
+        android:elevation="24dp"
+        android:gravity="end"
+        android:weightSum="6.5"
+        android:orientation="vertical">
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@mipmap/enopeck" />
+    <TextView
+        android:id="@+id/appTitle"
+        style="@style/style_medium_font"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".8"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#caff1919"
+        android:text="@string/RFID_demo_app" />
+
+    <include layout="@layout/title_divider" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".4"
+        android:gravity="top|center_horizontal"
+        style="@style/style_medium_font"
+        android:text="@string/develop"
+        android:textColor="#da000000"
+        />
+    <TextView
+        android:id="@+id/companyTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:gravity="top|center_horizontal"
+        style="@style/style_medium_font"
+        android:text="@string/moto_solutions"
+        />
+    <include layout="@layout/title_divider" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:gravity="center"
+        android:text="@string/module_version"
+        android:textColor="#e7f73e3e"
+        />
+
+
+    <include layout="@layout/title_divider" />
+
+
+    <TextView
+        android:id="@+id/appVersionRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.9"
+        android:gravity="left"
+        android:textSize="13dp"
+        android:text="@string/about"/>
+
+
+
+    <TextView
+        android:id="@+id/sledTitle"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="5"
+        android:gravity="left"
+        android:visibility="gone"
+        style="@style/style_normal_font"
+        android:text="@string/rfid_sled" />
+
+    <TableRow
+        android:id="@+id/moduleVersionRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:visibility="gone"
+
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/moduleVersionTitle"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:layout_weight="50"
+            style="@style/style_normal_font"
+            android:text="@string/module_version" />
+        <TextView
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:text="@string/colon" />
+
+        <TextView
+            android:id="@+id/moduleVersion"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_weight="40"
+            style="@style/style_normal_font"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/radioVersionRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="5"
+        android:visibility="gone"
+
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/radioVersionTitle"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:layout_weight="50"
+            style="@style/style_normal_font"
+            android:text="@string/radio_version" />
+        <TextView
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:text="@string/colon" />
+        <TextView
+            android:id="@+id/radioVersion"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_weight="40"
+            style="@style/style_normal_font" />
+    </TableRow>
+
+    <include layout="@layout/title_divider" />
+
+
+    <TextView
+        android:id="@+id/copyRight"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".4"
+        android:gravity="center"
+        android:text="@string/copyright_info"
+
+        android:textColor="#000"
+        android:textSize="15dp"/>
+
+</LinearLayout>
+
+</LinearLayout>
+

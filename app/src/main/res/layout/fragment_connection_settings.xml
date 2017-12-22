@@ -1,0 +1,218 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_layout_style"
+    android:orientation="vertical"
+    android:divider="?android:attr/listDivider"
+    android:showDividers="beginning"
+    tools:context="com.zebra.rfidreader.demo.fragments.AntennaSettingsFragment">
+
+    <TextView
+        android:id="@+id/readerSettingsTitle"
+        style="@style/style_medium_font"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="bottom"
+        android:text="@string/reader_conn_sett" />
+
+    <include layout="@layout/title_divider"/>
+
+    <!--<TableRow
+        android:id="@+id/autoDetectReadersRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/autoDetectReadersTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="85"
+            android:gravity="left"
+            android:text="@string/auto_detect_readers" />
+
+        <CheckBox
+            android:id="@+id/autoDetectReaders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:gravity="left" />
+    </TableRow>
+
+    <include layout="@layout/normal_divider"/>-->
+
+    <TableRow
+        android:id="@+id/autoReconnectReadersRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/autoReconnectReadersTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="85"
+            android:gravity="left"
+            android:text="@string/auto_reconnect_reader" />
+
+        <CheckBox
+            android:id="@+id/autoReconnectReaders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="15"
+            android:gravity="left" />
+    </TableRow>
+
+    <include layout="@layout/normal_divider"/>
+
+    <TableRow
+        android:id="@+id/NFCSettingsRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/NFCSettingsTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="85"
+            android:gravity="left"
+            android:text="@string/nfc_based_BT_connection" />
+
+        <CheckBox
+            android:id="@+id/NFCsettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:gravity="left" />
+    </TableRow>
+    <include layout="@layout/normal_divider"/>
+
+    <TextView
+        android:id="@+id/notificationSettingsTitle"
+        style="@style/style_medium_font"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="10"
+        android:gravity="bottom"
+        android:text="@string/notification_settings" />
+
+    <include layout="@layout/title_divider"/>
+
+    <TableRow
+        android:id="@+id/readerAvailableRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/readerAvailableTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="85"
+            android:gravity="left"
+            android:text="@string/readers_available" />
+
+        <CheckBox
+            android:id="@+id/readerAvailable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:gravity="left" />
+    </TableRow>
+
+    <include layout="@layout/normal_divider"/>
+
+    <TableRow
+        android:id="@+id/readerConnectionRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/readerConnectionTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="85"
+            android:gravity="left"
+            android:text="@string/readers_connection" />
+
+        <CheckBox
+            android:id="@+id/readerConnection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:gravity="left" />
+    </TableRow>
+
+    <include layout="@layout/normal_divider"/>
+
+    <TableRow
+        android:id="@+id/readerBatteryRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/readerBatteryTitle"
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="85"
+            android:gravity="left"
+            android:text="@string/reader_battery_status" />
+
+        <CheckBox
+            android:id="@+id/readerBattery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:gravity="left" />
+    </TableRow>
+
+    <include layout="@layout/normal_divider"/>
+
+    <TextView
+        style="@style/style_medium_font"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="bottom"
+        android:text="@string/export_data_sett" />
+
+    <include layout="@layout/title_divider"/>
+
+    <TableRow
+        android:id="@+id/autoDetectReadersRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <TextView
+            style="@style/style_normal_font"
+            android:layout_width="0dp"
+            android:layout_weight="85"
+            android:gravity="left"
+            android:text="@string/export_data" />
+
+        <CheckBox
+            android:id="@+id/exportData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:gravity="left" />
+    </TableRow>
+
+    <include layout="@layout/normal_divider"/>
+
+</LinearLayout>
+
+
