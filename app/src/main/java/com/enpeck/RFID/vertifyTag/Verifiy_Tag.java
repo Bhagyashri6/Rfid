@@ -217,6 +217,9 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
         listView.setTextFilterEnabled(true);
 
         listView.setAdapter(null);
+        if (adapter != null){
+            adapter.clear();
+        }
 //        adapter.clear();
         //   trxtview.setText((CharSequence) listView);
 
