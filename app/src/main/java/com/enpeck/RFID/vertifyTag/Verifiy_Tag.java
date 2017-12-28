@@ -415,7 +415,7 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
 
         }
 
-        listView.setAdapter(null);
+       // listView.setAdapter(null);
 
 
 
