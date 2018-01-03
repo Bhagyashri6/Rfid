@@ -1,6 +1,5 @@
 package com.enpeck.RFID.home;
 
-import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -104,7 +103,7 @@ public class HomeFragment extends Fragment {
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            BluetoothAdapter.getDefaultAdapter().disable();
+                           // BluetoothAdapter.getDefaultAdapter().disable();
                             getActivity().moveTaskToBack(true);
                             android.os.Process.killProcess(android.os.Process.myPid());
                             System.exit(1);
