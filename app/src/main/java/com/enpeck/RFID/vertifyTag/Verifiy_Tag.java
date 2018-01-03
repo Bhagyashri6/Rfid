@@ -233,6 +233,7 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
         listView.setOnItemClickListener(onItemClickListener);
 
 
+
         latitude = (TextView) getActivity().findViewById(R.id.latitude);
         longitude = (TextView) getActivity().findViewById(R.id.longitude);
         imei = (TextView) getActivity().findViewById(R.id.imei);

@@ -156,6 +156,13 @@ public class HomeFragment extends Fragment {
         }
 
 
+
+
+
+
+
+
+
         if (((ActionBarActivity) getActivity()).getSupportActionBar() != null) {
             //Set the navigation mode to standard
             ((ActionBarActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
