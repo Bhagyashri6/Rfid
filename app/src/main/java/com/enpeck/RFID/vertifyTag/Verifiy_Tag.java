@@ -14,6 +14,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -39,6 +42,7 @@ import com.enpeck.RFID.common.Constants;
 import com.enpeck.RFID.common.ModelDeailyReport;
 import com.enpeck.RFID.common.ResponseHandlerInterfaces;
 import com.enpeck.RFID.common.SessionManagement;
+import com.enpeck.RFID.home.HomeFragment;
 import com.enpeck.RFID.home.MainActivity;
 import com.enpeck.RFID.inventory.InventoryListItem;
 import com.enpeck.RFID.inventory.ModifiedInventoryAdapter;
@@ -83,6 +87,11 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
     Boolean serverissue = false;
 
 
+    Spinner containerspinner;
+    String container1,truck1;
+    EditText Truck1,Container1;
+
+
     private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
     private static final String NAMESPACE = "http://tempuri.org/";
 
@@ -92,6 +101,16 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
     private static final String Soap_ACTIONflag = "http://tempuri.org/UpdateFlagEseal";
     // specifies the action
     private static final String METHOD_NAMEflag = "UpdateFlagEseal";
+
+    private static final String Soap_ACTIONComment = "http://tempuri.org/GetComment";
+    // specifies the action
+    private static final String METHOD_NAMEComment = "GetComment";
+
+    private static final String Soap_ACTIONInsertComment = "http://tempuri.org/InsertComment";
+    // specifies the action
+    private static final String METHOD_NAMEInsertComment = "InsertComment";
+
+
     String tagg, date, deviceIMEI;
     String serial, iec, bill, vechicle, container, dest, sealingdate, sealingtime, shippingdate, SealNo;
 
@@ -662,6 +681,21 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                           /*     LinearLayout linearLayout =(LinearLayout)getActivity().findViewById(R.id.qq);
+                                linearLayout.setVisibility(View.VISIBLE);
+                                Container1 =(EditText) getActivity().findViewById(R.id.container);
+                                Truck1 =(EditText)getActivity().findViewById(R.id.truck);
+                                containerspinner =(Spinner) getActivity().findViewById(R.id.comment);
+                                Button save =(Button)getActivity().findViewById(R.id.save);
+                                save.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        container1 =Container1.getText().toString();
+                                        truck1 =Truck1.getText().toString();
+                                        new asynCommentInsert().execute();
+                                    }
+                                });
+                                new asyncGetComment().execute();*/
                                 //    startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                 Log.d("MaterialStyledDialogs", "Do something!");
                                 listView.setAdapter(null);
@@ -796,6 +830,155 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
             } else {
                 Toast.makeText(getContext(), "Data is save in database", Toast.LENGTH_LONG).show();
 
+            }
+        }
+    }
+
+    public class asyncGetComment extends AsyncTask<Void, Void, Void> {
+        String model = "";
+        String[] Loca;
+        ProgressDialog pd =new ProgressDialog(getActivity());
+
+        private ArrayList<String> brandname = new ArrayList<>();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd.setMessage("Please wait...");
+            pd.setCancelable(false);
+            pd.show();
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                SoapObject request = new SoapObject(NAMESPACE, METHOD_NAMEComment);
+                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                envelope.dotNet = true;
+                envelope.setOutputSoapObject(request);
+
+                HttpTransportSE httpTransportSE = new HttpTransportSE(URL);
+
+                httpTransportSE.call(Soap_ACTIONComment, envelope);
+                SoapObject obj = (SoapObject) envelope.getResponse();
+
+
+                for (int i = 0; i < obj.getPropertyCount(); i++) {
+                    model = model + obj.getProperty(i).toString() + ',';
+                }
+                Loca = model.split(",");
+                Loca[0] = "-- Select Comment--";
+                //  Loca[1] = "All";
+
+
+                Loca = model.split(",");
+                Loca[0] = "-- Select Comment --";
+                //   Loca[1] = "All";
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                pd.dismiss();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void aVoid) {
+
+            pd.dismiss();
+            super.onPostExecute(aVoid);
+            try{
+                ArrayAdapter<String> brandNameAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, Loca);
+                brandNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                containerspinner.setAdapter(brandNameAdapter);
+
+            }catch (Exception e){}
+
+
+
+        }
+    }
+
+    public class asynCommentInsert extends AsyncTask<Void,Void,Void>{
+        ProgressDialog progressDialog;
+        TelephonyManager tm ;
+        boolean success = false;
+        String  truckno,container,comment;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Please Wait while we Board you in..");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            truckno =Truck1.getText().toString();
+            container =Container1.getText().toString();
+            comment =containerspinner.getSelectedItem().toString();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            SoapObject request = new SoapObject(NAMESPACE,METHOD_NAMEInsertComment);
+            request.addProperty("truckno",truckno);
+            request.addProperty("containerno",container);
+            request.addProperty("comment",comment);
+            request.addProperty("port",username);
+
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet= true;
+            envelope.setOutputSoapObject(request);
+
+            HttpTransportSE httpTransportSE =new HttpTransportSE(URL);
+            try{
+                httpTransportSE.call(Soap_ACTIONInsertComment,envelope);
+                SoapPrimitive soapPrimitive =(SoapPrimitive)envelope.getResponse();
+                if (soapPrimitive.toString().equals("success")){
+                    success =true;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            super.onPostExecute(aVoid);
+
+            progressDialog.dismiss();
+            if (success){
+                Toast.makeText(getActivity(),"Enter the field",Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                MaterialStyledDialog dialog = new MaterialStyledDialog.Builder(getActivity())
+                        .setTitle("successfully!!!")
+                        .setIcon(R.mipmap.logo)
+                        .setHeaderDrawable(R.color.colorPrimary)
+                        .setDescription("Data is save in Database\n")
+                        .withIconAnimation(true)
+                        .setPositiveText("OK")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                //    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                Log.d("MaterialStyledDialogs", "Do something!");
+                                listView.setAdapter(null);
+
+                                // adapter.clear();
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+
+                HomeFragment fragment2 = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, fragment2);
+                fragmentTransaction.commit();
             }
         }
     }

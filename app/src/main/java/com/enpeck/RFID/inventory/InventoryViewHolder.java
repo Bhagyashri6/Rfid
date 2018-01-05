@@ -18,12 +18,12 @@ public class InventoryViewHolder {
     private TextView phaseView;
     private TextView channelView;
 
-    public InventoryViewHolder(LinearLayout textViewWrap, TextView textView, TextView countView, TextView memoryBank, TextView memoryBankData, TextView pcView,
+    public InventoryViewHolder(LinearLayout textViewWrap, TextView textView, TextView memoryBank, TextView memoryBankData, TextView pcView,
                                TextView rssiView, TextView phaseView, TextView channelView) {
         super();
         this.textViewWrap = textViewWrap;
         this.textView = textView;
-        this.countView = countView;
+        //this.countView = countView;
         this.memoryBank = memoryBank;
         this.memoryBankData = memoryBankData;
         this.pcView = pcView;

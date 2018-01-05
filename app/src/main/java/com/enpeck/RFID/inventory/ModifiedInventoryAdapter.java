@@ -95,14 +95,14 @@ public class ModifiedInventoryAdapter extends ArrayAdapter<InventoryListItem> {
             TextView phaseView = (TextView) convertView.findViewById(R.id.phase);
             TextView channelView = (TextView) convertView.findViewById(R.id.channel);
 
-            holder = new InventoryViewHolder(textViewWrap, text, count, memoryBank, memoryBankData, pcView, rssiView, phaseView, channelView);
+            holder = new InventoryViewHolder(textViewWrap, text,  memoryBank, memoryBankData, pcView, rssiView, phaseView, channelView);
         } else {
             //The item is already inflated. Use it.
             holder = (InventoryViewHolder) convertView.getTag();
         }
 
         holder.getTextView().setText(listItem.getText());
-        holder.getCountView().setText("" + listItem.getCount());
+       // holder.getCountView().setText("" + listItem.getCount());
 
         if (listItem.getMemoryBankData() == null || (listItem.getMemoryBankData() != null && listItem.getMemoryBankData().isEmpty())) {
             convertView.findViewById(R.id.memoryBankData).setVisibility(View.GONE);
