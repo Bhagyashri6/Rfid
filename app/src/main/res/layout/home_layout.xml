@@ -923,14 +923,15 @@
                 android:layout_weight="3"
                 android:orientation="horizontal"
                 android:weightSum="2">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="2.5dp"
                     android:layout_weight="1"
                     android:background="@drawable/square"
-                    android:orientation="vertical"
                     android:onClick="verfiedcontainer"
+                    android:orientation="vertical"
                     android:weightSum="2">
 
                     <ImageView
@@ -954,9 +955,9 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:paddingTop="10dp"
                         android:layout_weight=".5"
                         android:gravity="center"
+                        android:paddingTop="10dp"
                         android:text="@string/verfty"
                         android:textColor="#4E5760"
                         android:textSize="14sp"
@@ -965,6 +966,47 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/square"
+                    android:onClick="batteryclick"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <ImageView
+                        android:id="@+id/btn_bette"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1.5"
+                        android:padding="20dp"
+
+                        android:src="@drawable/action_battery_level" />
+
+
+                    <!--app:civ_border_color="#4E5760"
+            app:civ_border_width="2dp"-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight=".5"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:text="@string/battery_Status"
+                        android:textColor="#4E5760"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -972,8 +1014,9 @@
                     android:layout_margin="2.5dp"
                     android:layout_weight="1"
                     android:background="@drawable/square"
-                    android:orientation="vertical"
                     android:onClick="readerclick"
+                    android:orientation="vertical"
+                    android:visibility="gone"
                     android:weightSum="2">
 
                     <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -1415,6 +1458,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="gone"
             android:layout_weight=".1">
 
             <TextView

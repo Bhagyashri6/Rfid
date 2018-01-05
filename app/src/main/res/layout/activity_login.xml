@@ -266,6 +266,7 @@
                     android:text="radio"/>
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -55,6 +55,7 @@ import com.enpeck.RFID.locate_tag.RangeGraph;
 import com.enpeck.RFID.notifications.NotificationsService;
 import com.enpeck.RFID.rapidread.RapidReadFragment;
 import com.enpeck.RFID.reader_connection.ReadersListFragment;
+import com.enpeck.RFID.settings.BatteryFragment;
 import com.enpeck.RFID.settings.PreFilterFragment;
 import com.enpeck.RFID.settings.SettingListFragment;
 import com.enpeck.RFID.settings.SettingsContent;
@@ -520,7 +521,12 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
                 break;
 
             case 5:
+
                 fragment =AboutFragment.newInstance();
+                break;
+
+            case 6:
+                fragment = BatteryFragment.newInstance();
                 break;
 
         /*    case 4:
@@ -598,6 +604,8 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
             return R.drawable.ic_check_box_black_24dp;
         else if (fragment instanceof AboutFragment)
             return R.mipmap.about;
+        else if (fragment instanceof BatteryFragment)
+            return R.drawable.battery_level;
         else
             return -1;
 
@@ -1562,7 +1570,11 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
     }
 
     public void aboutClicked() {
-        selectItem(8);
+        selectItem(5);
+    }
+
+    public void batteryclick(View view){
+        selectItem(6);
     }
     /**
      * Access button in {@link com.enpeck.RFID.DailyReport.DailyReportFragment} is clicked

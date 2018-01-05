@@ -467,10 +467,12 @@ public class ReadersListFragment extends Fragment {
     }
 
     private void sendNotification(String action, String data) {
-        if (getActivity().getTitle().toString().equalsIgnoreCase(getString(R.string.title_activity_settings_detail)))
-            ((SettingsDetailActivity) getActivity()).sendNotification(action, data);
-        else
-            ((MainActivity) getActivity()).sendNotification(action, data);
+        try {
+            if (getActivity().getTitle().toString().equalsIgnoreCase(getString(R.string.title_activity_settings_detail)))
+                ((SettingsDetailActivity) getActivity()).sendNotification(action, data);
+            else
+                ((MainActivity) getActivity()).sendNotification(action, data);
+        }catch (Exception e){}
     }
 
     /**
@@ -549,40 +551,42 @@ public class ReadersListFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
             progressDialog.cancel();
-            if (ex != null) {
-                if (ex.getResults() == RFIDResults.RFID_CONNECTION_PASSWORD_ERROR) {
-                    showPasswordDialog(connectingDevice);
-                    bluetoothDeviceConnected(connectingDevice);
-                } else if (ex.getResults() == RFIDResults.RFID_BATCHMODE_IN_PROGRESS) {
-                    Application.isBatchModeInventoryRunning = true;
-                    Application.mIsInventoryRunning = true;
-                    bluetoothDeviceConnected(connectingDevice);
-                    if (Application.NOTIFY_READER_CONNECTION)
-                        sendNotification(Constants.ACTION_READER_CONNECTED, "Connected to " + connectingDevice.getName());
-                    //Events.StatusEventData data = Application.mConnectedReader.Events.GetStatusEventData(RFID_EVENT_TYPE.BATCH_MODE_EVENT);
+            try {
+                if (ex != null) {
+                    if (ex.getResults() == RFIDResults.RFID_CONNECTION_PASSWORD_ERROR) {
+                        showPasswordDialog(connectingDevice);
+                        bluetoothDeviceConnected(connectingDevice);
+                    } else if (ex.getResults() == RFIDResults.RFID_BATCHMODE_IN_PROGRESS) {
+                        Application.isBatchModeInventoryRunning = true;
+                        Application.mIsInventoryRunning = true;
+                        bluetoothDeviceConnected(connectingDevice);
+                        if (Application.NOTIFY_READER_CONNECTION)
+                            sendNotification(Constants.ACTION_READER_CONNECTED, "Connected to " + connectingDevice.getName());
+                        //Events.StatusEventData data = Application.mConnectedReader.Events.GetStatusEventData(RFID_EVENT_TYPE.BATCH_MODE_EVENT);
 //                    Intent detailsIntent = new Intent(getActivity(), MainActivity.class);
 //                    detailsIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                    detailsIntent.putExtra(RFID_EVENT_TYPE.BATCH_MODE_EVENT.toString(), 0/*data.BatchModeEventData.get_RepeatTrigger()*/);
 //                    startActivity(detailsIntent);
-                } else if (ex.getResults() == RFIDResults.RFID_READER_REGION_NOT_CONFIGURED) {
-                    bluetoothDeviceConnected(connectingDevice);
-                    Application.regionNotSet = true;
-                    sendNotification(Constants.ACTION_READER_STATUS_OBTAINED, getString(R.string.set_region_msg));
-                    Intent detailsIntent = new Intent(getActivity(), SettingsDetailActivity.class);
-                    detailsIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    detailsIntent.putExtra(Constants.SETTING_ITEM_ID, 7);
-                    startActivity(detailsIntent);
-                } else
-                    bluetoothDeviceConnFailed(connectingDevice);
-            } else {
-                if (result) {
-                    if (Application.NOTIFY_READER_CONNECTION)
-                        sendNotification(Constants.ACTION_READER_CONNECTED, "Connected to " + connectingDevice.getName());
-                    bluetoothDeviceConnected(connectingDevice);
+                    } else if (ex.getResults() == RFIDResults.RFID_READER_REGION_NOT_CONFIGURED) {
+                        bluetoothDeviceConnected(connectingDevice);
+                        Application.regionNotSet = true;
+                        sendNotification(Constants.ACTION_READER_STATUS_OBTAINED, getString(R.string.set_region_msg));
+                        Intent detailsIntent = new Intent(getActivity(), SettingsDetailActivity.class);
+                        detailsIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        detailsIntent.putExtra(Constants.SETTING_ITEM_ID, 7);
+                        startActivity(detailsIntent);
+                    } else
+                        bluetoothDeviceConnFailed(connectingDevice);
                 } else {
-                    bluetoothDeviceConnFailed(connectingDevice);
+                    if (result) {
+                        if (Application.NOTIFY_READER_CONNECTION)
+                            sendNotification(Constants.ACTION_READER_CONNECTED, "Connected to " + connectingDevice.getName());
+                        bluetoothDeviceConnected(connectingDevice);
+                    } else {
+                        bluetoothDeviceConnFailed(connectingDevice);
+                    }
                 }
-            }
+            }catch (Exception e){}
             deviceConnectTask = null;
         }
 

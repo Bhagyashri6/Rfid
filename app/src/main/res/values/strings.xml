@@ -32,7 +32,7 @@
         <item>Verified Tag</item>
         <item>connect Your Devices</item>
         <item>About As</item>
-
+        <item>Battery Status</item>
 
 
     </string-array>
@@ -251,7 +251,8 @@
     <string name="notification_settings">Notification Settings</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="tag_reporting">Tag Reporting</string>
-    <string name="battery">Battery</string>
+    <string name="battery">Battery </string>
+    <string name="battery_Status">Battery Status</string>
     <string name="rr_unique_tags_title">Unique Tags</string>
     <string name="rr_total_tag_title">TOTAL READS</string>
     <string name="rr_read_time_title">READ TIME</string>

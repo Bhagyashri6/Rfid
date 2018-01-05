@@ -48,6 +48,7 @@ public class DrawerListContent {
         addItem(new DrawerItem("3", "Verified Tag", R.mipmap.vertify3));
         addItem(new DrawerItem("4", "Connectivity", R.mipmap.connectivity));
         addItem(new DrawerItem("5", "About As", R.mipmap.about));
+        addItem(new DrawerItem("6", "Battery Status", R.drawable.battery_level));
 
 
     }
