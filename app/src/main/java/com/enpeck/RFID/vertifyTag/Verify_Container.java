@@ -71,12 +71,12 @@ public class Verify_Container extends Fragment {
     private static final String Soap_ACTIONAll = "http://tempuri.org/GetVerifyContainerAll";
     // specifies the action
     private static final String METHOD_NAMEAll = "GetVerifyContainerAll";
-    private static final String Soap_ACTIONBill = "http://tempuri.org/GetBillNo";
+    private static final String Soap_ACTIONBill = "http://tempuri.org/GetBillNo1";
     // specifies the action
-    private static final String METHOD_NAMEBill = "GetBillNo";
-    private static final String Soap_ACTIONIec = "http://tempuri.org/GetIECcode";
+    private static final String METHOD_NAMEBill = "GetBillNo1";
+    private static final String Soap_ACTIONIec = "http://tempuri.org/GetIECcode1";
     // specifies the action
-    private static final String METHOD_NAMEIec = "GetIECcode";
+    private static final String METHOD_NAMEIec = "GetIECcode1";
 
     public Verify_Container() {
         // Required empty public constructor
@@ -127,6 +127,7 @@ public class Verify_Container extends Fragment {
         password = user.get(SessionManagement.KEY_Ieccode);
         username = user.get(SessionManagement.KEY_username);
         radiostr =user.get(SessionManagement.KEY_password);
+
         new asyncGetBillNo().execute();
         new asyncGetIeccode().execute();
         new asyncDailyReport().execute();
@@ -322,6 +323,8 @@ public class Verify_Container extends Fragment {
         protected Void doInBackground(Void... params) {
             try {
                 SoapObject request = new SoapObject(NAMESPACE, METHOD_NAMEBill);
+                request.addProperty("port",imei);
+
                 SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
                 envelope.dotNet = true;
                 envelope.setOutputSoapObject(request);
@@ -387,6 +390,8 @@ public class Verify_Container extends Fragment {
         protected Void doInBackground(Void... params) {
             try {
                 SoapObject request = new SoapObject(NAMESPACE, METHOD_NAMEIec);
+                request.addProperty("port",imei);
+
                 SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
                 envelope.dotNet = true;
                 envelope.setOutputSoapObject(request);

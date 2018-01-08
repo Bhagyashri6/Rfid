@@ -95,9 +95,9 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
     private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
     private static final String NAMESPACE = "http://tempuri.org/";
 
-    private static final String Soap_ACTION = "http://tempuri.org/GetAssignTag";
+    private static final String Soap_ACTION = "http://tempuri.org/GetAssignTag1";
     // specifies the action
-    private static final String METHOD_NAME = "GetAssignTag";
+    private static final String METHOD_NAME = "GetAssignTag1";
     private static final String Soap_ACTIONflag = "http://tempuri.org/UpdateFlagEseal";
     // specifies the action
     private static final String METHOD_NAMEflag = "UpdateFlagEseal";
@@ -306,15 +306,13 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
         // tableFixHeaders = (TableFixHeaders)getActivity(). findViewById(R.id.table);
         hintetext = (TextView) getActivity().findViewById(R.id.hintetext);
 
-
-        session = new SessionManagement(getContext());
+        session = new SessionManagement(getContext().getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();
-        imei1 = user.get(SessionManagement.KEY_company);
+
+        imei1 =user.get(SessionManagement.KEY_company);
         password = user.get(SessionManagement.KEY_Ieccode);
         username = user.get(SessionManagement.KEY_username);
-        radiostr = user.get(SessionManagement.KEY_password);
-
-
+        radiostr =user.get(SessionManagement.KEY_password);
 
  /*       SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar currentCal = Calendar.getInstance();
@@ -569,6 +567,7 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
                 SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
                 request.addProperty("Tag", tagg);
+                request.addProperty("port",imei1);
                /* request.addProperty("port",portt);
                 request.addProperty("truckno",truckk);
                 request.addProperty("container",contt);*/
@@ -681,21 +680,23 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                           /*     LinearLayout linearLayout =(LinearLayout)getActivity().findViewById(R.id.qq);
-                                linearLayout.setVisibility(View.VISIBLE);
-                                Container1 =(EditText) getActivity().findViewById(R.id.container);
-                                Truck1 =(EditText)getActivity().findViewById(R.id.truck);
-                                containerspinner =(Spinner) getActivity().findViewById(R.id.comment);
-                                Button save =(Button)getActivity().findViewById(R.id.save);
-                                save.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        container1 =Container1.getText().toString();
-                                        truck1 =Truck1.getText().toString();
-                                        new asynCommentInsert().execute();
-                                    }
-                                });
-                                new asyncGetComment().execute();*/
+                                try {
+                                    LinearLayout linearLayout = (LinearLayout) getActivity().findViewById(R.id.qq);
+                                    linearLayout.setVisibility(View.VISIBLE);
+                                    Container1 = (EditText) getActivity().findViewById(R.id.container);
+                                    Truck1 = (EditText) getActivity().findViewById(R.id.truck);
+                                    containerspinner = (Spinner) getActivity().findViewById(R.id.comment);
+                                    Button save = (Button) getActivity().findViewById(R.id.save);
+                                    save.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            container1 = Container1.getText().toString();
+                                            truck1 = Truck1.getText().toString();
+                                            new asynCommentInsert().execute();
+                                        }
+                                    });
+                                    new asyncGetComment().execute();
+                                }catch (Exception e){}
                                 //    startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                 Log.d("MaterialStyledDialogs", "Do something!");
                                 listView.setAdapter(null);
