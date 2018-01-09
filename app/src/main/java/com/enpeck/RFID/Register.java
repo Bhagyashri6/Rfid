@@ -51,7 +51,7 @@ public class Register extends AppCompatActivity {
     ArrayAdapter autoadapter,brancharray;
   //  Spinner State;
     TextView State,txtGetImei;
-    private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
+    private static final String URL = "http://atm-india.in/EnopeckService.asmx";
     private static final String NAMESPACE = "http://tempuri.org/";
     private static final String Soap_ACTION = "http://tempuri.org/GetState";
     private static final String METHOD_NAME= "GetState";

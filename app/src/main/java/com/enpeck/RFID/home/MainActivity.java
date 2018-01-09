@@ -129,6 +129,9 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
     SessionManagement session;
     private ModifiedInventoryAdapter adapter;
 
+
+    public static ImageView batteryLevelImage;
+
     ImageView image;
 
     LinearLayout master,tag;
@@ -263,7 +266,7 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
         master =(LinearLayout)findViewById(R.id.master);
         tag =(LinearLayout)findViewById(R.id.tag);
 
-
+        batteryLevelImage = (ImageView) findViewById(R.id.batteryLevelImage);
 
         mTitle = mDrawerTitle = getTitle();
         mOptionTitles = getResources().getStringArray(R.array.options_array11);
@@ -409,6 +412,9 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment2);
         fragmentTransaction.commit();
+
+
+
     }
 
     /* Called whenever we call invalidateOptionsMenu() */
@@ -631,6 +637,8 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
     public void onResume() {
         super.onResume();
         Application.activityResumed();
+
+
     }
 
     /**
@@ -1477,18 +1485,37 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (menu != null && menu.findItem(R.id.action_dpo) != null) {
+                if (menu != null && menu.findItem(R.id.action_bett) != null) {
                     if (Application.dynamicPowerSettings != null && Application.dynamicPowerSettings.getValue() == 1) {
-                        menu.findItem(R.id.action_dpo).setIcon(R.drawable.action_battery_dpo_level);
+                        menu.findItem(R.id.action_bett).setIcon(R.drawable.action_battery_dpo_level);
                     } else {
-                        menu.findItem(R.id.action_dpo).setIcon(R.drawable.action_battery_level);
+                        menu.findItem(R.id.action_bett).setIcon(R.drawable.action_battery_level);
                     }
-                    menu.findItem(R.id.action_dpo).getIcon().setLevel(level);
+                    menu.findItem(R.id.action_bett).getIcon().setLevel(level);
                 }
-            }
+                }
+
         });
     }
 
+ /*   public void setActionBarBatteryStatus1(final int level) {
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                    if (Application.dynamicPowerSettings != null && Application.dynamicPowerSettings.getValue() == 1) {
+                        batteryLevelImage.setImageResource(R.drawable.action_battery_dpo_level);
+                    } else {
+                        batteryLevelImage.setImageResource(R.drawable.action_battery_level);
+                    }
+                    batteryLevelImage.getDrawable().setLevel(level);
+
+            }
+
+        });
+    }
+*/
 
 
     /**
@@ -2201,17 +2228,6 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
                 }
             }
         }
-
     }
-
-
-
-
-
-
-
-
-
-
 
 }

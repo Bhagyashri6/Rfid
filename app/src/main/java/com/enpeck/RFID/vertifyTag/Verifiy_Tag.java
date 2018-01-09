@@ -92,15 +92,16 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
     EditText Truck1,Container1;
 
 
-    private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
-    private static final String NAMESPACE = "http://tempuri.org/";
+   // private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
+   private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+   private static final String NAMESPACE = "http://tempuri.org/";
 
     private static final String Soap_ACTION = "http://tempuri.org/GetAssignTag1";
     // specifies the action
     private static final String METHOD_NAME = "GetAssignTag1";
-    private static final String Soap_ACTIONflag = "http://tempuri.org/UpdateFlagEseal";
+    private static final String Soap_ACTIONflag = "http://tempuri.org/UpdateFlagEseal1";
     // specifies the action
-    private static final String METHOD_NAMEflag = "UpdateFlagEseal";
+    private static final String METHOD_NAMEflag = "UpdateFlagEseal1";
 
     private static final String Soap_ACTIONComment = "http://tempuri.org/GetComment";
     // specifies the action
@@ -692,7 +693,12 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
                                         public void onClick(View v) {
                                             container1 = Container1.getText().toString();
                                             truck1 = Truck1.getText().toString();
-                                            new asynCommentInsert().execute();
+                                            if (!container1.isEmpty() && !truck1.isEmpty() && !containerspinner.getSelectedItem().toString().isEmpty()) {
+                                                new asynCommentInsert().execute();
+                                            }else{
+                                                Toast.makeText(getActivity(),"Please Entry Truck No and Container No and Comment",Toast.LENGTH_SHORT).show();
+                                            }
+
                                         }
                                     });
                                     new asyncGetComment().execute();
@@ -800,6 +806,8 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
         protected Void doInBackground(Void... params) {
             SoapObject request = new SoapObject(NAMESPACE, METHOD_NAMEflag);
             request.addProperty("eseal", tagg);
+            request.addProperty("latitude",lati);
+            request.addProperty("longitute",longi);
             //  request.addProperty("date",date);
 
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);

@@ -349,7 +349,7 @@
     <string name="home_settings">Generate Master Data</string>
     <string name="incoming">Custom Incoming Container</string>
     <string name="home_locate">Daily Report</string>
-    <string name="home_filter">Verified Tag</string>
+    <string name="home_filter">Verify New Tag</string>
     <string name="verfty">Verified Container</string>
     <string name="aboutas">About As</string>
     <string name="home_access">Device Compatibility</string>

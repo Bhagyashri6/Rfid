@@ -26,10 +26,10 @@ import java.util.Timer;
  * Fragment to show the battery information.
  */
 public class BatteryFragment extends Fragment {
-    private ImageView batteryLevelImage;
-    private TextView batteryStatusText;
-    private TextView batteryLevel;
-    private Timer t;
+    public static ImageView batteryLevelImage;
+    public static  TextView batteryStatusText;
+    public static  TextView batteryLevel;
+    public static  Timer t;
 
     public BatteryFragment() {
         // Required empty public constructor
@@ -97,7 +97,7 @@ public class BatteryFragment extends Fragment {
         }
     }*/
 
-    public void deviceStatusReceived(final int level, final boolean charging, final String cause) {
+    public  void  deviceStatusReceived(final int level, final boolean charging, final String cause) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

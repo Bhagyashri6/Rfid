@@ -63,8 +63,9 @@ public class Verify_Container extends Fragment {
     String radiostr,imei,username,password;
 
 
-    private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
-    private static final String NAMESPACE = "http://tempuri.org/";
+  //  private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
+  private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+  private static final String NAMESPACE = "http://tempuri.org/";
     private static final String Soap_ACTION = "http://tempuri.org/GetVerifyContainer";
     // specifies the action
     private static final String METHOD_NAME = "GetVerifyContainer";

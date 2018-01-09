@@ -70,7 +70,10 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
     private ProgressDialog pd;
     private Thread SearchTread;
 
-    private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
+  // private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
+
+    private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+
     private static final String NAMESPACE = "http://tempuri.org/";
 
     private static final String METHOD_NAMEimemi = "Rfidimei1";

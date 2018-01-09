@@ -62,8 +62,9 @@ public class IncomingContainer extends Fragment {
     String radiostr,imei,username,password;
 
 
-    private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
-    private static final String NAMESPACE = "http://tempuri.org/";
+  //  private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
+  private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+  private static final String NAMESPACE = "http://tempuri.org/";
     private static final String Soap_ACTION = "http://tempuri.org/GetIncomingInformation";
     // specifies the action
     private static final String METHOD_NAME = "GetIncomingInformation";

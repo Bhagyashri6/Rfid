@@ -970,14 +970,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="2.5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="1."
                     android:background="@drawable/square"
                     android:onClick="batteryclick"
                     android:orientation="vertical"
                     android:weightSum="2">
 
                     <ImageView
-                        android:id="@+id/btn_bette"
+                        android:id="@+id/batteryLevelImage"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
@@ -992,6 +992,7 @@
                     <!--app:civ_border_color="#4E5760"
             app:civ_border_width="2dp"-->
                     <TextView
+                        android:id="@+id/batteryStatusText"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
@@ -1005,6 +1006,35 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
+           <!--         <TextView
+                        android:id="@+id/batteryLevelText"
+                        style="@style/style_green_font"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"
+                        android:layout_marginTop="@dimen/default_top_margin"
+                        android:layout_weight=".3"
+                        android:text="@string/battery_percentage_text" />
+
+
+                    <ImageView
+                        android:id="@+id/batteryLevelImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="@dimen/default_margin"
+                        android:layout_weight="1.3"
+                        android:contentDescription="@string/battery_level_desc"
+                        android:src="@drawable/battery_level" />
+
+                    <TextView
+                        android:id="@+id/batteryStatusText"
+                        style="@style/style_grey_font"
+                        android:layout_height="0dp"
+                        android:layout_weight=".3"
+                        android:gravity="center_horizontal"
+                        android:text="@string/battery_no_active_connection_message" />
+-->
 
                 </LinearLayout>
 
