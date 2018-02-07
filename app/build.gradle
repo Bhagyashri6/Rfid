@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '25.4.0'
     defaultConfig {
         applicationId "com.enpeck.RFID"
         minSdkVersion 19
@@ -31,10 +31,10 @@ dependencies {
     })
     compile project(':RFIDAPI3Library')
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:cardview-v7:25.1.0'
+    compile 'com.android.support:design:25.4.0'
+    compile 'com.android.support:cardview-v7:25.4.0'
     compile 'com.google.code.ksoap2-android:ksoap2-android:3.6.1'
     compile 'com.github.javiersantos:MaterialStyledDialogs:2.0'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
@@ -43,6 +43,10 @@ dependencies {
     compile 'com.thoughtbot:expandablerecyclerview:1.3'
     compile 'com.vistrav:ask:2.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-v4:25.4.0 '
     testCompile 'junit:junit:4.12'
+
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
+    compile 'com.koushikdutta.ion:ion:2.+'
 }

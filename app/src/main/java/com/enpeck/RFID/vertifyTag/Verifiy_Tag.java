@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +40,7 @@ import com.enpeck.RFID.application.Application;
 import com.enpeck.RFID.common.Bean;
 import com.enpeck.RFID.common.Constants;
 import com.enpeck.RFID.common.ModelDeailyReport;
+import com.enpeck.RFID.common.OpenCellID;
 import com.enpeck.RFID.common.ResponseHandlerInterfaces;
 import com.enpeck.RFID.common.SessionManagement;
 import com.enpeck.RFID.home.HomeFragment;
@@ -47,8 +48,19 @@ import com.enpeck.RFID.home.MainActivity;
 import com.enpeck.RFID.inventory.InventoryListItem;
 import com.enpeck.RFID.inventory.ModifiedInventoryAdapter;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.zebra.rfid.api3.RFIDResults;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
@@ -56,12 +68,12 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static com.enpeck.RFID.application.Application.accessControlTag;
 
 
@@ -81,7 +93,7 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
     LocationManager locationManager;
     static final int REQUEST_LOCATION = 1;
     String str = "353857080012475";
-    String lati = "77.199621", longi = "28.614360";
+    String lati , longi ;
     //  private String[] tableHeaders={"Serial No","IEC Code","Bill No","Vehicle No","Container No","Destination Port","Sealing_Date","Sealing_Time","Shipping_Date"};
     public static ArrayList<ModelDeailyReport> listReport = new ArrayList<>();
     Boolean serverissue = false;
@@ -94,6 +106,7 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
 
    // private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
    private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+  //  private static final String URL = "http://atm-india.in/RFIDDemoService.asmx";
    private static final String NAMESPACE = "http://tempuri.org/";
 
     private static final String Soap_ACTION = "http://tempuri.org/GetAssignTag1";
@@ -132,6 +145,12 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
     private Spinner invSpinner;
     private TextView batchModeInventoryList;
     List<InventoryListItem> items;
+
+
+
+
+    int myLatitude, myLongitude;
+    OpenCellID openCellID;
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -314,6 +333,147 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
         password = user.get(SessionManagement.KEY_Ieccode);
         username = user.get(SessionManagement.KEY_username);
         radiostr =user.get(SessionManagement.KEY_password);
+
+
+
+        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
+
+        String networkOperator = telephonyManager.getNetworkOperator();
+        String mcc = networkOperator.substring(0, 3);
+        String mnc = networkOperator.substring(3);
+        int cid = cellLocation.getCid();
+        int lac = cellLocation.getLac();
+
+        openCellID = new OpenCellID();
+
+        openCellID.setMcc(mcc);
+        openCellID.setMnc(mnc);
+        openCellID.setCallID(cid);
+        openCellID.setCallLac(lac);
+
+
+        JsonObject json = new JsonObject();
+
+        json.addProperty("token", "992548d48ab013");
+        json.addProperty("radio", "gsm");
+        json.addProperty("mcc", mcc);
+        json.addProperty("mnc", mnc);
+
+        JsonArray jr = new JsonArray();
+
+        JsonObject item = new JsonObject();
+        item.addProperty("lac", lac);
+        item.addProperty("cid", cid);
+        jr.add(item);
+
+
+        String string = "[" + item + "]";
+
+        JsonParser parser = new JsonParser();
+        JsonElement elem = parser.parse(string);
+
+        JsonArray elemArr = elem.getAsJsonArray();
+
+
+        json.add("cells", elemArr);
+        json.addProperty("address", 1);
+
+        Log.d("loc", "onCreate: " + json);
+
+
+//        {
+//            "token": "Your_API_Token",
+//                "radio": "gsm",
+//                "mcc": 310,
+//                "mnc": 410,
+//                "cells": [{
+//            "lac": 7033,
+//                    "cid": 17811
+//        }],
+//            "address": 1
+//        }
+
+// network  conection need deepak
+
+        Ion.with(this)
+                .load("POST", "https://ap1.unwiredlabs.com/v2/process.php")
+                .setJsonObjectBody(json)
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        Log.d("location", "onCompleted: " + result);
+
+
+                        lati = result.get("lat").toString();
+                        longi = result.get("lon").toString();
+                        String address = result.get("address").toString();
+                        String callLeft = result.get("balance").toString();
+
+                        latitude.setText(lati);
+                        longitude.setText(longi);
+
+
+
+
+                        /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+
+                        // Setting Dialog Title
+                        alertDialog.setTitle("Detail information...");
+
+                        // Setting Dialog Message
+                        alertDialog.setMessage("Current location \n\nlatitude = " + lati + " \n\nlongitude = " + longi + " \n\nAddress = " + address + "\n\n Balance left = " + callLeft);
+
+                        // Setting Icon to Dialog
+                        alertDialog.setIcon(R.mipmap.ic_launcher);
+
+                        // Setting Positive "Yes" Button
+                        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                // Write your code here to invoke YES event
+                                Toast.makeText(getActivity(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        // Setting Negative "NO" Button
+                        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to invoke NO event
+                                Toast.makeText(getActivity(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                                dialog.cancel();
+                            }
+                        });
+
+                        // Showing Alert Message
+                        alertDialog.show();*/
+                        // do stuff with the result or error
+                    }
+                });
+
+
+        try {
+            openCellID.GetOpenCellID();
+
+
+            if (!openCellID.isError()) {
+                /*textGeo.setText(openCellID.getLocation());
+                textRemark.setText("\n\n"
+                        + "URL sent: \n" + openCellID.getstrURLSent() + "\n\n"
+                        + "response: \n" + openCellID.GetOpenCellID_fullresult);*/
+            } else {
+                //  textGeo.setText("Error");
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            //textGeo.setText("Exception: " + e.toString());
+        }
+
 
  /*       SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar currentCal = Calendar.getInstance();
@@ -727,6 +887,7 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
                                 //    startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                 Log.d("MaterialStyledDialogs", "Do something!");
                                 //    adapter.clear();
+
                                 new UpdateFlag().execute();
                                 listView.setAdapter(null);
 
@@ -838,6 +999,8 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
                 Toast.makeText(getContext(), "Data is not save in database", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getContext(), "Data is save in database", Toast.LENGTH_LONG).show();
+              //  new SendSMSTask().execute();
+
 
             }
         }
@@ -992,6 +1155,61 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
         }
     }
 
+
+    public class SendSMSTask extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog ringProgressDialog;
+        boolean success;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+
+                HttpClient Client = new DefaultHttpClient();
+
+                try {
+                    String SetServerString = "";
+
+                    String msg = URLEncoder.encode("Hi, Enopeck \n, Your Seal no  " + serial + "\n at Port " + dest + "\n, Container No. " + container + "\n has been read on " + sealingdate + "\n, " + sealingtime + "\n", "UTF-8");
+                    String URL1 = "http://fast.admarksolution.com/vendorsms/pushsms.aspx?user=MUMATM&password=and@marks95&msisdn=919821008090&sid=MUMATM&msg=" + msg + "&fl=0&gwid=2";
+
+                    HttpGet httpget = new HttpGet(URL1);
+                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                    SetServerString = Client.execute(httpget, responseHandler);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                success = true;
+            } catch (Exception ex) {
+                Toast.makeText(getActivity(), "Sorry! Your sms sending failed...",
+                        Toast.LENGTH_LONG).show();
+                ex.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            ringProgressDialog.dismiss();
+            if (success) {
+                Toast.makeText(getActivity(), "SMS send Successfully...", Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(getActivity(), "Problem in sending message..Please try again..", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            success = false;
+            ringProgressDialog = ProgressDialog.show(getActivity(), "Please wait ...", "Sending Request ...", true);
+            ringProgressDialog.setCancelable(true);
+        }
+    }
+
     private void display() {
 
         Serial = (TextView) getActivity().findViewById(R.id.serial);
@@ -1029,44 +1247,28 @@ public class Verifiy_Tag extends Fragment implements Spinner.OnItemSelectedListe
         deviceIMEI = tManager.getDeviceId();
 
         imei.setText(deviceIMEI);
-        locationManager =(LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-        getLocation();
-        //        latitude.setText(lati);
-//        longitude.setText(longi);
+
     }
 
-    void getLocation() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-
-        } else {
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location != null) {
-                double latti = location.getLatitude();
-                double logti = location.getLongitude();
 
 
-                longi =String.valueOf(logti);
-                lati =String.valueOf(latti);
-                latitude.setText( longi);
-                longitude.setText( lati);
 
-            } else {
-                latitude.setText("Unable to find Location");
-                longitude.setText("Unable to find Location");
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
             }
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
-    }
 
-
-    public void onRequestPermissionsResult(int requestcode, String[] permission,int[] grantResult){
-        super.onRequestPermissionsResult(requestcode, permission, grantResult);
-
-        switch (requestcode){
-            case RESULT_CANCELED :
-                getLocation();
-                break;
-        }
     }
 }

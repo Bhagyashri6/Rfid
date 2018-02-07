@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
   // private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
 
     private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+//    private static final String URL = "http://atm-india.in/RFIDDemoService.asmx";
 
     private static final String NAMESPACE = "http://tempuri.org/";
 
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
         password = (EditText) findViewById(R.id.password);
         register = (TextView) findViewById(R.id.register);
         // company =(TextView)findViewById(R.id.companyname);
+        Log.d("login", "onCreate: "+"login");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.login);
@@ -172,6 +174,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
             return;
         }
         deviceIMEI = tManager.getDeviceId();
+        Log.d("rfid", "onCreate:rfid device "+deviceIMEI);
         txtGetImei.setText(deviceIMEI);
 
         new AsynkImei(deviceIMEI).execute();
@@ -369,7 +372,14 @@ public class LoginActivity extends AppCompatActivity implements ActivityCompat.O
                 }
 
                 uname = beanobj.serial;
+                Log.d("rfid", "onActivityCreated async: username "+uname);
+
                 deviceIMEI = beanobj.iec;
+                TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                String imeidev=telephonyManager.getDeviceId().toString();
+                Log.d("rfid", "onActivityCreated async: serverimei "+deviceIMEI);
+                Log.d("rfid", "onActivityCreated async: device imei "+imeidev);
+
 
                /* if (object.getPropertyCount() > 0) {
                     flag =1;

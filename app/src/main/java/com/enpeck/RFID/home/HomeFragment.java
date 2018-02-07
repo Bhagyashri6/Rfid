@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -141,8 +142,12 @@ public class HomeFragment extends Fragment {
         HashMap<String, String> user = session.getUserDetails();
 
         imei =user.get(SessionManagement.KEY_company);
+        Log.d("rfid", "onActivityCreated : imei "+imei);
         password = user.get(SessionManagement.KEY_Ieccode);
+        Log.d("rfid", "onActivityCreated: password "+password);
         username = user.get(SessionManagement.KEY_username);
+        Log.d("rfid", "onActivityCreated: username "+username);
+
         radiostr =user.get(SessionManagement.KEY_password);
         textView.setText(radiostr);
         name.setText("Your are at Port : " +imei);

@@ -319,8 +319,8 @@
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:layout_marginTop="2dp"
-              android:text="e-Seal No :"
-              android:hint="e-Seal No :"
+              android:text="e-SEAL NO :"
+              android:hint="e-SEAL NO :"
               android:gravity="left|center"
               />
           <TextView

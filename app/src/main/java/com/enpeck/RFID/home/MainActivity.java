@@ -1,15 +1,20 @@
 package com.enpeck.RFID.home;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +22,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,10 +40,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.enpeck.RFID.R;
 import com.enpeck.RFID.access_operations.AccessOperationsFragment;
 import com.enpeck.RFID.access_operations.AccessOperationsLockFragment;
 import com.enpeck.RFID.application.Application;
+import com.enpeck.RFID.common.Bean;
 import com.enpeck.RFID.common.Constants;
 import com.enpeck.RFID.common.CustomProgressDialog;
 import com.enpeck.RFID.common.CustomToast;
@@ -62,6 +72,7 @@ import com.enpeck.RFID.settings.SettingsContent;
 import com.enpeck.RFID.vertifyTag.IncomingContainer;
 import com.enpeck.RFID.vertifyTag.Verifiy_Tag;
 import com.enpeck.RFID.vertifyTag.Verify_Container;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.zebra.rfid.api3.ACCESS_OPERATION_CODE;
 import com.zebra.rfid.api3.ACCESS_OPERATION_STATUS;
 import com.zebra.rfid.api3.BATCH_MODE;
@@ -84,6 +95,12 @@ import com.zebra.rfid.api3.STOP_TRIGGER_TYPE;
 import com.zebra.rfid.api3.TAG_FIELD;
 import com.zebra.rfid.api3.TagAccess;
 import com.zebra.rfid.api3.TagData;
+
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,6 +145,17 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
     private AsyncTask<Void, Void, Boolean> DisconnectTask;
     SessionManagement session;
     private ModifiedInventoryAdapter adapter;
+
+
+    private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+    // private static final String URL = "http://atm-india.in/RFIDDemoService.asmx";
+
+    private static final String NAMESPACE = "http://tempuri.org/";
+
+    private static final String METHOD_NAMEimemi = "Rfidimei1";
+    private static final String SOAP_ACTIONimei = "http://tempuri.org/Rfidimei1";
+    Boolean serverissue = false;
+    String uname,deviceIMEI;
 
 
     public static ImageView batteryLevelImage;
@@ -273,6 +301,24 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
+        TelephonyManager tManager = (TelephonyManager) getBaseContext()
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        deviceIMEI = tManager.getDeviceId();
+        Log.d("rfid", "onCreate: "+deviceIMEI);
+
+        new AsynkImei(deviceIMEI).execute();
+
+
      //   mDrawerList.performItemClick(mDrawerList, 0, mDrawerList.getVisibility());
 
      //   drawer =(LinearLayout)findViewById(R.id.left_drawer);
@@ -351,13 +397,7 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
 
 
 
-        session = new SessionManagement(getApplicationContext());
-        HashMap<String, String> user = session.getUserDetails();
 
-        imei =user.get(SessionManagement.KEY_company);
-        password = user.get(SessionManagement.KEY_Ieccode);
-        username = user.get(SessionManagement.KEY_username);
-        radiostr =user.get(SessionManagement.KEY_password);
     }
 
     /**
@@ -400,6 +440,7 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
 //        Application.mConnectedReader = null;
         ReadersListFragment.readersList.clear();
         Application.readers.deattach(this);
+        Application.readers.deattach(this);
         Application.reset();
         super.onDestroy();
     }
@@ -412,8 +453,6 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment2);
         fragmentTransaction.commit();
-
-
 
     }
 
@@ -1498,24 +1537,7 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
         });
     }
 
- /*   public void setActionBarBatteryStatus1(final int level) {
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                    if (Application.dynamicPowerSettings != null && Application.dynamicPowerSettings.getValue() == 1) {
-                        batteryLevelImage.setImageResource(R.drawable.action_battery_dpo_level);
-                    } else {
-                        batteryLevelImage.setImageResource(R.drawable.action_battery_level);
-                    }
-                    batteryLevelImage.getDrawable().setLevel(level);
-
-            }
-
-        });
-    }
-*/
 
 
     /**
@@ -2229,5 +2251,179 @@ public class MainActivity extends ActionBarActivity implements Readers.RFIDReade
             }
         }
     }
+
+    class AsynkImei extends AsyncTask<Void, Void, Void> {
+
+        ProgressDialog pd = new ProgressDialog(MainActivity.this);
+
+        String result = "false";
+        String str;
+
+        public AsynkImei(String str) {
+            this.str = str;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd.setMessage("Please wait...");
+            pd.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                SoapObject request = new SoapObject(NAMESPACE, METHOD_NAMEimemi);
+                request.addProperty("IMEI",deviceIMEI);
+
+                Bean C = new Bean();
+                PropertyInfo pi = new PropertyInfo();
+                pi.setName("Bean");
+                pi.setValue(C);
+                pi.setType(C.getClass());
+                request.addProperty(pi);
+
+                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                envelope.dotNet = true;
+                envelope.setOutputSoapObject(request);
+                envelope.addMapping(NAMESPACE, "Bean", new Bean().getClass());
+
+                HttpTransportSE androidHttpTransport = new HttpTransportSE(URL, 60 * 10000);
+                androidHttpTransport.debug = true;
+                androidHttpTransport.call(SOAP_ACTIONimei, envelope);
+
+                SoapObject response2 = (SoapObject) envelope.getResponse();
+                Bean[] personobj = new Bean[response2.getPropertyCount()];
+                Bean beanobj = new Bean();
+
+                for (int j = 0; j < personobj.length; j++) {
+
+                    SoapObject pii = (SoapObject) response2.getProperty(j);
+                    beanobj.serial = pii.getProperty(0).toString();
+                    beanobj.iec = pii.getProperty(1).toString();
+
+
+                    personobj[j] = beanobj;
+
+                }
+
+                uname = beanobj.serial;
+                deviceIMEI = beanobj.iec;
+
+                Log.d("rfid", "doInBackground: "+deviceIMEI);
+
+               /* if (object.getPropertyCount() > 0) {
+                    flag =1;
+                    for (int i = 0; i < object.getPropertyCount(); i++) {
+                        SoapObject innerResponse = (SoapObject) object.getProperty(i);
+
+                        listReport.add(new ModelDeailyReport(
+                                innerResponse.getProperty("S1").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S1").toString(),
+                                innerResponse.getProperty("S2").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S2").toString(),
+                                innerResponse.getProperty("S3").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S3").toString(),
+                                innerResponse.getProperty("S4").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S4").toString(),
+                                innerResponse.getProperty("S5").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S5").toString(),
+                                innerResponse.getProperty("S6").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S6").toString(),
+                                innerResponse.getProperty("S7").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S7").toString(),
+                                innerResponse.getProperty("S8").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S8").toString(),
+                                innerResponse.getProperty("S9").toString().contentEquals("anyType{}") ? " " : innerResponse.getProperty("S9").toString()
+                        ));
+                    }
+                }
+                else {
+                    flag =0;
+
+                }*/
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                pd.dismiss();
+
+                serverissue = true;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            super.onPostExecute(aVoid);
+            if (uname == null && deviceIMEI == null ) {
+                pd.dismiss();
+                new MaterialStyledDialog.Builder(MainActivity.this)
+                        .setTitle("Oops!")
+                        .setDescription("Your Imei no is not in database....")
+                        .setIcon(R.mipmap.sale1)
+                        .setHeaderDrawable(R.color.colorPrimary)
+                        .setPositiveText(R.string.button)
+                        .withIconAnimation(true)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setCancelable(false)
+                        .show();
+            } else {
+
+                pd.dismiss();
+                session = new SessionManagement(getApplicationContext());
+                HashMap<String, String> user = session.getUserDetails();
+
+                imei =user.get(SessionManagement.KEY_company);
+                password = user.get(SessionManagement.KEY_Ieccode);
+                username = user.get(SessionManagement.KEY_username);
+                radiostr =user.get(SessionManagement.KEY_password);
+
+            /*    Intent intent =new Intent(MainActivity.this,MainActivity.class);
+                SessionManagement sessionManagement =new SessionManagement(getApplicationContext());
+                Map<String, String> map = new HashMap<>();
+                map.put("imei", deviceIMEI);   //  ("name=(that use from web service in paas string name ", name=(that use from database colom name for this)
+                map.put("password", uname);
+                map.put("username",deviceIMEI);
+                map.put("radiostr", radiostr);
+                sessionManagement.createRegisterationSession(deviceIMEI,uname,deviceIMEI,radiostr);*/
+                //   intent.putExtra("radiostr",radiostr);
+              //  startActivity(intent);
+
+            }
+
+        /*    if (result.contentEquals("true")) {
+                pd.dismiss();
+                Intent intent =new Intent(LoginActivity.this,MainActivity.class);
+                SessionManagement sessionManagement =new SessionManagement(getApplicationContext());
+                Map<String, String> map = new HashMap<>();
+                map.put("imei", deviceIMEI);   //  ("name=(that use from web service in paas string name ", name=(that use from database colom name for this)
+                map.put("password", uname);
+                map.put("username",deviceIMEI);
+                map.put("radiostr", radiostr);
+                sessionManagement.createRegisterationSession(deviceIMEI,uname,deviceIMEI,radiostr);
+                //   intent.putExtra("radiostr",radiostr);
+                startActivity(intent);
+
+            } else {
+                pd.dismiss();
+                new MaterialStyledDialog.Builder(LoginActivity.this)
+                        .setTitle("Oops!")
+                        .setDescription("Your Imei no is not in database....")
+                        .setIcon(R.mipmap.sale1)
+                        .setHeaderDrawable(R.color.colorPrimary)
+                        .setPositiveText(R.string.button)
+                        .withIconAnimation(true)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setCancelable(false)
+                        .show();
+                Toast.makeText(LoginActivity.this, "Your Imei no is not in database....", Toast.LENGTH_SHORT).show();
+            }*/
+        }
+    }
+
 
 }

@@ -64,6 +64,7 @@ public class IncomingContainer extends Fragment {
 
   //  private static final String URL = "http://www.accountsandtaxminers.com/Service.asmx";
   private static final String URL = "http://atm-india.in/EnopeckService.asmx";
+  // private static final String URL = "http://atm-india.in/RFIDDemoService.asmx";
   private static final String NAMESPACE = "http://tempuri.org/";
     private static final String Soap_ACTION = "http://tempuri.org/GetIncomingInformation";
     // specifies the action
@@ -475,9 +476,6 @@ public class IncomingContainer extends Fragment {
                 iec = "All";
 
             }
-
-
-
         }
 
         protected Void doInBackground(Void... params) {
